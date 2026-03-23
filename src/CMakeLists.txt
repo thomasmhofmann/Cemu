@@ -105,6 +105,21 @@ if (MACOS_BUNDLE)
 	else()
 	    set(LIBUSB_PATH "${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}/lib/libusb-1.0.0.dylib")
 	endif()
+	if(NOT EXISTS "${LIBUSB_PATH}")
+		find_library(LIBUSB_SYSTEM_PATH
+			NAMES libusb-1.0.0.dylib usb-1.0 libusb-1.0
+			PATHS
+				/usr/local/lib
+				/opt/homebrew/lib
+				/usr/local/opt/libusb/lib
+				/opt/homebrew/opt/libusb/lib
+		)
+		if(LIBUSB_SYSTEM_PATH)
+			set(LIBUSB_PATH "${LIBUSB_SYSTEM_PATH}")
+		else()
+			message(FATAL_ERROR "failed to find libusb-1.0.0.dylib")
+		endif()
+	endif()
 
 	if (EXISTS "/usr/local/lib/libMoltenVK.dylib")
 		set(MOLTENVK_PATH "/usr/local/lib/libMoltenVK.dylib")

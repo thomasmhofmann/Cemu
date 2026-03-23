@@ -1,6 +1,6 @@
 #include "nsyshid.h"
 
-#if BOOST_OS_BSD
+#if BOOST_OS_BSD || BOOST_OS_MACOS
 #include <libusb.h>
 #else
 #include <libusb-1.0/libusb.h>

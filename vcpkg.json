@@ -59,7 +59,10 @@
         "zip"
       ]
     },
-    "libusb"
+    {
+      "name": "libusb",
+      "platform": "!osx"
+    }
   ],
   "overrides": [
     {
